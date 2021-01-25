@@ -17,7 +17,7 @@ const port = process.env.PORT || 8000;
 const subscriberDataPath = path.join(__dirname, 'subscribers.json');
 
 // Routers
-const publishRouter = require('./routes/publishRouter')();
+const publishRouter = require("./routes/publishRouter")(subscriberDataPath);
 const subscriberRouter = require("./routes/subscriberRouter")(
   subscriberDataPath
 );

@@ -34,14 +34,14 @@ function routes(dataPath) {
       //   if (!err) {
       //     console.log("File exists");
       fs.readFile(dataPath, (err, json) => {
-        const data = JSON.parse(json);
-        console.log("the data", data);
         if (err) {
           return res.status(500).json({
             error: true,
             errMsg: `Error occured while trying to get data`
           });
         }
+        const data = JSON.parse(json);
+        // console.log("the data", data);
         // check if topic already present
         if (data[topic]) {
           // check if url is present under topic
