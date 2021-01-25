@@ -29,10 +29,6 @@ function routes(dataPath) {
           errMsg: `'url' cannot be undefined or empty string and must be a string`
         });
       }
-      // get the subscribers data from json file/db
-      // fs.access(dataPath, (err) => {
-      //   if (!err) {
-      //     console.log("File exists");
       fs.readFile(dataPath, (err, json) => {
         if (err) {
           return res.status(500).json({
@@ -41,18 +37,11 @@ function routes(dataPath) {
           });
         }
         const data = JSON.parse(json);
-        // console.log("the data", data);
-        // check if topic already present
         if (data[topic]) {
           // check if url is present under topic
-          console.log(
-            "topic data",
-            data[topic],
-            data[topic].some((link) => link === url)
-          );
           if (data[topic].some((link) => link === url)) {
             // url already exists for topic
-            return res.status(404).json({
+            return res.status(406).json({
               error: true,
               errMsg: `Subscriber with url ${url} already exists for topic '${topic}'`,
             });
@@ -79,10 +68,6 @@ function routes(dataPath) {
           }
         });
       });
-      // } else {
-      //   console.log("File does not exist");
-      // }
-      // });
     });
 
   return router;
